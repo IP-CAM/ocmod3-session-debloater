@@ -1,7 +1,7 @@
 # Session Debloater
 
 ## Description
-The Session Debloater extension is for Opencart 3 CMS. It fixes the known bug and prevents to bloat session table in DB [issue #7094](https://github.com/opencart/opencart/issues/7094).
+The Session Debloater extension is for Opencart 3 CMS. It fixes the known bug and prevents to bloat session table in DB (issue [#7094](https://github.com/opencart/opencart/issues/7094)).
 
 ## Features
 * Removes session entries older than gc_maxlifetime seconds + 1 day
