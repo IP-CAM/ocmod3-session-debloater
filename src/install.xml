@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+This file is part of "Session Debloater" project and subject to the terms
+and conditions defined in file "LICENSE.txt", which is part of this source
+code package and also available on the project page: https://git.io/JvBSI.
+-->
+
+<modification>
+    <name>[underr] Session Debloater</name>
+    <code>session-debloater</code>
+    <version>1.0</version>
+    <author>Andrii Burkatskyi aka underr</author>
+    <link info="https://github.com/opencart/opencart/issues/7094">https://git.io/JvBSI</link>
+
+    <file path="system/library/session/db.php">
+        <operation error="log">
+            <search>
+                <![CDATA[$this->expire = ini_get('session.gc_maxlifetime');]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+        /// << Session Debloater
+        if ($this->db) {
+            // Remove entries older than gc_maxlifetime seconds + 1 day
+            $this->gc((int)$this->expire + 86400);
+        }
+        /// Session Debloater >>]]>
+            </add>
+        </operation>
+
+        <operation error="log">
+            <search>
+                <![CDATA[((int)time() + $expire)]]>
+            </search>
+            <add position="replace">
+                <![CDATA["'" . date("Y-m-d H:i:s", (int)time() - $expire) . "'"]]>
+            </add>
+        </operation>
+
+        <operation error="log">
+            <search>
+                <![CDATA[return false;]]>
+            </search>
+            <add position="replace">
+                <![CDATA[return array();  /// Session Debloater >>]]>
+            </add>
+        </operation>
+    </file>
+
+    <file path="system/library/session/file.php">
+        <operation error="log">
+            <search>
+                <![CDATA[$handle = fopen($file, 'r');]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            /// << Session Debloater
+            $expire = (int)time() - ini_get('session.gc_maxlifetime');
+
+			if (filemtime($file) > $expire) {]]>
+            </add>
+        </operation>
+
+        <operation error="log">
+            <search>
+                <![CDATA[return unserialize($data);]]>
+            </search>
+            <add position="after">
+                <![CDATA[			}
+            /// Session Debloater >>]]>
+            </add>
+        </operation>
+    </file>
+</modification>
