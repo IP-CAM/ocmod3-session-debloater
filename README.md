@@ -10,6 +10,6 @@ The Session Debloater extension is for Opencart 3 CMS. It fixes the known bug an
 [MIT License](https://git.io/JvBSY)
 
 ## Links
-[Opencart Marketplace](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=38580)
-[Homepage](https://underr.space/en/notes/projects/project-0024.html)
-[GitHub](https://git.io/JvBSI)
+* [Opencart Marketplace](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=38580)
+* [Homepage](https://underr.space/en/notes/projects/project-0024.html)
+* [GitHub](https://git.io/JvBSI)
